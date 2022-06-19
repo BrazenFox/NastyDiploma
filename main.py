@@ -18,13 +18,13 @@ MO = 0.0
 NB = 0.0
 ZR = 0.0
 
-UD = 24.0  # Вольт
-J = 150.0  # Ампер
+UD = 10.5  # Вольт
+J = 160.0  # Ампер
 
 PSI = 0.7
 
 D = 4.0  # толщина металла с см
-V = 0.3  # скорость сварки см/с
+V = 0.5  # скорость сварки см/с
 
 EE = math.e
 PP = math.pi
@@ -93,7 +93,7 @@ T = rasschet_Tmax(Z, TL)
 XM = [0] * count_of_graph
 YM = [0] * count_of_graph
 TT = [((i+1) * T/count_of_graph) for i in range(count_of_graph)]
-x = np.arange(-5, 1, 0.1)
+x = np.arange(-5, 1, 0.01)
 t_array = [[0] * len(x) for i in range(count_of_graph)]
 for t in range(count_of_graph):
     xm, ym, tm, tt = rasschet_Xm_Ym_by_Z_Tmax(Z, TT[t])
@@ -114,7 +114,7 @@ for t in range(100):
 ax.plot(XM_plot, TT_plot)"""
 
 
-plt.title(u'График распределения температур по оси X для различных значений Y по схеме ДТ-ПТ')
+plt.title(u'График распределения температур по оси X для различных значений Y по схеме ДТ-ПТ при силе тока I='+str(J)+'А напряжении U=' + str(UD) + 'В и скорости v=' + str(V) + 'см/с')
 plt.xlabel(u'X, см')
 plt.ylabel(u'Температура, T\N{DEGREE SIGN}C')
 ax.plot(XM, TT, 'r--',label = u'Максимумы')
@@ -131,7 +131,7 @@ for i in range(count_of_graph):
 XM = np.array(XM)
 ax.plot(-XM/V, TT, 'r--',label = u'Максимумы')
 
-plt.title(u'График термического цикла по схеме ДТ-ПТ')
+plt.title(u'График термического цикла по схеме ДТ-ПТ при силе тока I='+str(J)+'А напряжении U=' + str(UD) + 'В и скорости v=' + str(V) + 'см/с')
 plt.xlabel(u't,c')
 plt.ylabel(u'Температура, T\N{DEGREE SIGN}C')
 plt.legend()
@@ -167,7 +167,7 @@ for i in range(len(max_index)):
 ax.plot(Xmax, Ymax, 'r--',label = u'Максимумы')
 plt.xlabel(u'X,см')
 plt.ylabel(u'Y,см')
-plt.title("Температурное поле предельного состояния по схеме ДТ-ПТ")
+plt.title('Температурное поле предельного состояния по схеме ДТ-ПТ при силе тока I='+str(J)+'А напряжении U=' + str(UD) + 'В и скорости v=' + str(V) + 'см/с')
 plt.legend()
 plt.grid(True)
 
@@ -195,6 +195,10 @@ fig = go.Figure(data=go.Volume(
     opacity=0.1, # needs to be small to see through all surfaces
     surface_count=21, # needs to be a large number for good volume rendering
     ))
+fig.update_layout(
+    title='Распределение температур движущегося точечного источника на поверхности полубесконечного тела\n\r'
+          'при силе тока I='+str(J)+'А напряжении U=' + str(UD) + 'В и скорости v=' + str(V) + 'см/с',
+    )
 fig.show()
 
 
